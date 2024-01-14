@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss', 
-    'shadcn-nuxt'
+    'shadcn-nuxt',
+    'nuxt-icon'
   ],
   devtools: { enabled: true },
   build: {

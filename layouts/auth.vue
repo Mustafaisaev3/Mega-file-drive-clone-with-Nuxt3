@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import Header from '@/components/auth/Header.vue'
+import Header from '../components/auth/Header.vue'
 </script>
 
 <style>
