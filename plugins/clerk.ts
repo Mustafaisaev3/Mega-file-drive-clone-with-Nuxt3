@@ -7,7 +7,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     publishableKey,
     options: {
       appearance: {
-        variables: { colorPrimary: '#570DF8' },
+        variables: { colorPrimary: '#F0373B' },
       },
     },
   });

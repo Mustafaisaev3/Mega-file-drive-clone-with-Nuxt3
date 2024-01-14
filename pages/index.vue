@@ -1,9 +1,5 @@
-<script setup lang="ts">
-import { UserButton } from 'vue-clerk';
-</script>
-
 <template>
-  <div class="hero h-full">
+  <div class="w-full h-full flex items-center justify-center p-8">
     <div class="hero-content text-center">
       <div class="max-w-md">
         <h1 class="text-5xl font-bold">
@@ -20,3 +16,8 @@ import { UserButton } from 'vue-clerk';
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import {UserButton} from 'vue-clerk'
+</script>
+
