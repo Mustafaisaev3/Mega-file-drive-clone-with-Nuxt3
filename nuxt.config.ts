@@ -4,5 +4,14 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss', 
     'shadcn-nuxt'
   ],
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  build: {
+    transpile: ['vue-clerk', '@clerk/clerk-js'],
+  },
+  runtimeConfig: {
+    public: {
+      clerkPublishableKey: process.env.CLERK_PUBLISHABLE_KEY,
+    },
+    clerkSecretKey: process.env.CLERK_SECRET_KEY,
+  },
 })
