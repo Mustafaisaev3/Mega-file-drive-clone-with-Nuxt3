@@ -25,7 +25,10 @@
 
       </div>
     </LeftPanel>
-    <Topbar />
+    <div class="w-full h-auto">
+      <Topbar />
+      <Heading />
+    </div>
   </div>
 </template>
 
@@ -33,5 +36,6 @@
 import { UserButton } from 'vue-clerk'
 import LeftPanel from '../components/shared/LeftPanel.vue';
 import Topbar from '../components/shared/Topbar.vue';
+import Heading from '../components/shared/Heading.vue';
 </script>
 

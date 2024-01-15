@@ -16,8 +16,9 @@ export const buttonVariants = cva(
           'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
-        gray: 'border-[2px] border-[gray]/20 hover:bg-[gray]/10',
         red: 'border-[2px] bg-[#f0373ace] border-[#f0373ace] hover:border-[#f0373ace]/90 hover:bg-[#f0373ace]/90 text-white',
+        gray: 'bg-gradient-to-t from-[#7c7c7c] to-[#a8a8a8] text-white',
+        green: 'bg-gradient-to-t from-[#0ac999] to-[#10dfbc] text-white',
       },
       size: {
         default: 'h-10 px-4 py-2',
