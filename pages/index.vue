@@ -25,11 +25,13 @@
 
       </div>
     </LeftPanel>
+    <Topbar />
   </div>
 </template>
 
 <script setup lang="ts">
-import {UserButton} from 'vue-clerk'
+import { UserButton } from 'vue-clerk'
 import LeftPanel from '../components/shared/LeftPanel.vue';
+import Topbar from '../components/shared/Topbar.vue';
 </script>
 
