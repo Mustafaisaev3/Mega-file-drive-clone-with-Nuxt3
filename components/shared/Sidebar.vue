@@ -25,7 +25,7 @@
                             >
                                 <IconCSS 
                                   :name="item.icon" 
-                                  class=" text-[40px]" 
+                                  class="text-[40px]" 
                                   :style="{color: currentRoute.path === item.path ? '#32ade1' : '#f1f1f1'}"
                                 />
                                 <div class="link-title text-white px-1">{{ item.label }}</div>
