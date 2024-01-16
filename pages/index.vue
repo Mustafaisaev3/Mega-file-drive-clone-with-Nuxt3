@@ -40,7 +40,7 @@
                   <h2 class="text-[#f1f1f1] text-sm">Создать папку</h2>
                 </div>
               </PopoverTrigger>
-              <PopoverContent class="py-4 w-[400px]">
+              <PopoverContent class="py-4 w-[400px] border border-[#3d3d3d]">
                 <AddFolderPopover />
               </PopoverContent>
             </Popover>
