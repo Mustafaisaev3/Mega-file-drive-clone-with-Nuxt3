@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-screen flex bg-[#222222]">
+    <div class="w-full h-screen flex bg-[#333333]">
         <Sidebar />
         <slot></slot>
     </div>

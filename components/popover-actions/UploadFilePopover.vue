@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 
-const uploadFile = (e) => {
+const uploadFile = (e: any) => {
     console.log(e.target.files)
 
 }
