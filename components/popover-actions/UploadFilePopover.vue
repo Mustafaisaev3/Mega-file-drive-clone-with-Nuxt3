@@ -33,12 +33,54 @@
 </template>
 
 <script setup lang="ts">
+import { useUser } from "vue-clerk";
+import { addDoc, updateDoc, collection, serverTimestamp, doc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { db, storage } from "../../lib/firebase";
+import { useRouter } from "vue-router";
 
-const uploadFile = (e: any) => {
-    console.log(e.target.files)
+const { user } = useUser()
 
+const uploadFile = (e: Event) => {
+  const router = useRouter()
+  const { files } = (<HTMLInputElement>e.target)
+  if (!files) return;
+
+  const file = files[0];
+  let image = "";
+
+  const reader = new FileReader();
+
+  if (file) {
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      image = e.target?.result as string;
+      console.log(e.target?.result)
+    };
+  }
+
+  addDoc(collection(db, "folders"), {
+      name: file.name,
+      type: file.type,
+      size: file.size,
+      uid: user?.value?.id,
+      timestamp: serverTimestamp(),
+      isArchive: false,
+      isDocument: false,
+    }
+  ).then((docs) => {
+    const refs = ref(storage, `files/${docs.id}/image`) 
+    uploadString(refs, image, "data_url").then(() => {
+      getDownloadURL(refs).then((url: string) => {
+        updateDoc(doc(db, 'files', docs.id), {
+          image: url,
+        }).then(() => {
+          router.go(0)
+        })
+      });
+    });
+  });
 }
-
 
 </script>
 
