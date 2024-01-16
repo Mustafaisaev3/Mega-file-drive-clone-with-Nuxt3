@@ -15,4 +15,7 @@ export default defineNuxtConfig({
     },
     clerkSecretKey: process.env.CLERK_SECRET_KEY,
   },
+  routeRules: {
+    '/': { redirect: '/storage' },
+  },
 })

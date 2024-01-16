@@ -47,12 +47,13 @@ const form = useForm({
 })
 
 const onSubmit = form.handleSubmit((values: any) => {
-    addDoc(collection(db, "folders"), {
-      folderName: values.folderName,
+    addDoc(collection(db, "files"), {
+      name: values.folderName,
       timestamp: serverTimestamp(),
       uid: user?.value?.id,
       isArchive: false,
       isDocument: false,
+      isFolder: true,
     }).then(() => {
       form.resetForm();
       router.go(0)

@@ -11,7 +11,6 @@
             <input
               type="file"
               class="hidden"
-              accept="image/*"
               @change="uploadFile"
             />
         </label>
@@ -59,14 +58,16 @@ const uploadFile = (e: Event) => {
     };
   }
 
-  addDoc(collection(db, "folders"), {
+  addDoc(collection(db, "files"), {
       name: file.name,
       type: file.type,
       size: file.size,
       uid: user?.value?.id,
       timestamp: serverTimestamp(),
       isArchive: false,
-      isDocument: false,
+      isImage: file.type.includes('image') ? true : false,
+      isDocument: !file.type.includes('image') ? true : false,
+      isFolder: false
     }
   ).then((docs) => {
     const refs = ref(storage, `files/${docs.id}/image`) 
