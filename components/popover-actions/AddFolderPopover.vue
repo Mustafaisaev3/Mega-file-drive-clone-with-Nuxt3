@@ -34,6 +34,7 @@ import {
   FormMessage,
 } from '../ui/form'
 
+const emit = defineEmits(['change'])
 
 const { user } = useUser()
 const router = useRouter()
@@ -56,7 +57,8 @@ const onSubmit = form.handleSubmit((values: any) => {
       isFolder: true,
     }).then(() => {
       form.resetForm();
-      router.go(0)
+      emit('change', true)
+      // router.go(0)
     })
 })
 

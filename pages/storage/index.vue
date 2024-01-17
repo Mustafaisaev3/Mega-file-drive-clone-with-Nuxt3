@@ -41,7 +41,7 @@
                 </div>
               </PopoverTrigger>
               <PopoverContent class="py-4 w-[400px] border border-[#3d3d3d]">
-                <AddFolderPopover />
+                <AddFolderPopover @change="() => getFiles()" />
               </PopoverContent>
             </Popover>
             <Popover>
@@ -56,55 +56,28 @@
               </PopoverContent>
             </Popover>
             <div class="flex items-center gap-2">
-                <IconCSS name="material-symbols:grid-on-sharp" class="text-[#f1f1f1] text-[24px] cursor-pointer"/>
-                <IconCSS name="material-symbols:lists" class="text-[#f1f1f1] text-[24px] cursor-pointer"/>
+              <div class="border-b-2 border-transparent" :class="{'!border-[#6fd7ff]': layout == 'GRID'}">
+                <IconCSS
+                  @click="() => handleToggleLayout('GRID')" 
+                  name="material-symbols:grid-on-sharp" 
+                  class="text-[#f1f1f1] text-[24px] cursor-pointer"
+                />
+              </div>
+              <div class="border-b-2 border-transparent" :class="{'!border-[#6fd7ff]': layout == 'LIST'}">
+                <IconCSS 
+                  @click="() => handleToggleLayout('LIST')" 
+                  name="material-symbols:lists" 
+                  class="text-[#f1f1f1] text-[24px] cursor-pointer"
+                />
+              </div>
             </div>
         </div>
       </Heading>
       <!-- Heading -->
 
       <!-- Data table -->
-      <div class="w-full h-auto">
-        <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead class="w-[50px] flex items-center">
-              <IconCSS name="mdi:cards-heart" class="text-[16px] text-[#c7c7c7] inline-block" />
-            </TableHead>
-            <TableHead>Имя</TableHead>
-            <TableHead>Размер</TableHead>
-            <TableHead>Тип</TableHead>
-            <TableHead>Дата добавления</TableHead>
-            <TableHead class="text-right">
-              <!-- Amount -->
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody v-if="isLoaded">
-          <TableRow v-for="file in files" class="border-b-[1px] border-[#444444] rounded-md px-2">
-            <TableCell class="font-medium w-[50px]">
-              <IconCSS name="ci:dot-04-l" class="text-[14px] text-[#c7c7c7] inline-block cursor-pointer" />
-            </TableCell>
-            <TableCell class="text-white">
-              <div class="flex gap-4">
-                <div class="w-5 h-5 flex items-center justify-center">
-                  <img v-if="file.isImage" class="w-5 h-5 object-containe rounded-sm" :src="file.image" alt="">
-                  <IconCSS v-if="file.isFolder" name="mdi:folder" class="text-[25px] text-[#ffecb5]" />
-                  <IconCSS v-if="file.isDocument" name="mdi:file" class="text-[25px] text-[#6fd7ff]" />
-                </div>
-                {{ file.name }}
-              </div>
-            </TableCell>
-            <TableCell>{{ file.size ? byteConverter(file.size) : '-' }}</TableCell>
-            <TableCell>{{ file.isImage ? file.type.split('/')[1] : file.isFolder ? "Папка" : "Файл"}}</TableCell>
-            <TableCell>{{ format(new Date(file.timestamp.seconds * 1000), "MM.dd.yyyy  mm:hh") }}</TableCell>
-            <TableCell class="text-right">
-              ...
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-      </div>
+      <List v-if="layout == 'LIST'" :files="files" />
+      <Grid v-if="layout == 'GRID'" :files="files"/>
       <!-- Data table -->
     </div>
   </div>
@@ -117,18 +90,8 @@ import Topbar from '../../components/shared/Topbar.vue';
 import Heading from '../../components/shared/Heading.vue';
 import AddFolderPopover from '../../components/popover-actions/AddFolderPopover.vue';
 import UploadFilePopover from '../../components/popover-actions/UploadFilePopover.vue';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '../../components/ui/table'
-
-import { byteConverter } from '../../lib/utils'
-import { format } from 'date-fns'
+import List from '../../components/list/List.vue';
+import Grid from '../../components/grid/Grid.vue';
 
 import { useAuth } from 'vue-clerk';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -136,10 +99,9 @@ import { db } from '../../lib/firebase';
 
 const { isLoaded, userId } = useAuth()
 
-let folders = ref<any>([])
 let files = ref<any>([])
 
-const getData = async (uid: string, type: "files" | "folders") => {
+const getData = async (uid: string, type?: "files" | "folders") => {
   let data: any[] = [];
   const q = query(
     collection(db, "files"),
@@ -161,15 +123,21 @@ const getData = async (uid: string, type: "files" | "folders") => {
 // }
 
 const getFiles = async () => {
+  console.log('update')
   const resData = await getData(userId.value!, "files")
   return files.value = resData
 }
 
 
 watch(isLoaded, () => {
-  // getFolders()
   getFiles()
 })
+
+// Grid/List toggle
+const layout = ref<'GRID' | 'LIST'>('LIST')
+const handleToggleLayout = (type: 'GRID' | 'LIST') => {
+  layout.value = type
+}
 
 </script>
 
