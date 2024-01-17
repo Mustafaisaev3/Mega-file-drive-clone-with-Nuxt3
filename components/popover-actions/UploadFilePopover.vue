@@ -70,11 +70,11 @@ const uploadFile = (e: Event) => {
       isFolder: false
     }
   ).then((docs) => {
-    const refs = ref(storage, `files/${docs.id}/image`) 
+    const refs = ref(storage, `files/${docs.id}/${file.name}`) 
     uploadString(refs, image, "data_url").then(() => {
       getDownloadURL(refs).then((url: string) => {
         updateDoc(doc(db, 'files', docs.id), {
-          image: url,
+          url,
         }).then(() => {
           router.go(0)
         })

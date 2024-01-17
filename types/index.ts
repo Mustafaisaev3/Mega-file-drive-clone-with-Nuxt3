@@ -5,10 +5,10 @@ export interface IFile {
     name: string;
     uid: string;
     timestamp: Timestamp;
-    image: string;
+    url: string;
     type: string;
     size: number;
-    isStar: boolean;
+    isWish: boolean;
     isFolder: boolean;
     isDocument: boolean;
     isImage: boolean;
