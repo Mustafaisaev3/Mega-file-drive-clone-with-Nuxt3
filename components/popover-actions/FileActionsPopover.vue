@@ -90,6 +90,8 @@
 import { doc, setDoc } from 'firebase/firestore';
 import type { IFile } from '../../types';
 import { db } from '../../lib/firebase';
+import useFilesStorage from '../../store/useFilesStorage';
+import { useAuth } from 'vue-clerk';
 
 const { file } = defineProps({
   file: {
@@ -97,6 +99,12 @@ const { file } = defineProps({
     required: true,
   }
 })
+
+const { fetchFiles } = useFilesStorage()
+const { userId } = useAuth()
+const getFiles = async () => {
+  fetchFiles(userId.value)
+}
 
 const reference = doc(db, 'files', file.id);
 
@@ -106,6 +114,8 @@ const onAddInWish = (e: Event) => {
     ...file,
     isWish: true,
   })
+
+  getFiles()
 };
 
 const onRemoveFromWish = (e: Event) => {
@@ -114,6 +124,8 @@ const onRemoveFromWish = (e: Event) => {
     ...file,
     isWish: false,
   })
+
+  getFiles()
 };
 
 const onDownload = async () => {
@@ -148,6 +160,8 @@ const onDelete = (e: Event) => {
     isArchive: true,
     archivedTime: new Date(),
   })
+
+  getFiles()
 };
 
 </script>

@@ -58,7 +58,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
 import Topbar from '../../components/shared/Topbar.vue';
 import Heading from '../../components/shared/Heading.vue';
 import AddFolderPopover from '../../components/popover-actions/AddFolderPopover.vue';
@@ -67,40 +66,16 @@ import List from '../../components/list/List.vue';
 import Grid from '../../components/grid/Grid.vue';
 
 import { useAuth } from 'vue-clerk';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
+import { storeToRefs } from 'pinia'
+import useFilesStorage from '../../store/useFilesStorage'
 
+const { fetchFiles } = useFilesStorage()
+const { files, loading } = storeToRefs(useFilesStorage())
 const { isLoaded, userId } = useAuth()
 
-let files = ref<any>([])
-
-const getData = async (uid: string, type?: "files" | "folders") => {
-  let data: any[] = [];
-  const q = query(
-    collection(db, "files"),
-    where("uid", "==", uid),
-    where("isArchive", "==", false),
-  );
-  const querySnapshot = await getDocs(q);
-  querySnapshot.forEach((doc) => {
-    data.push({ ...doc.data(), id: doc.id });
-  });
-
-  return data;
-};
-
-
-// const getFolders = async () => {
-//   const resData = await getData(userId.value!, "folders")
-//   return folders.value = resData
-// }
-
 const getFiles = async () => {
-  console.log('update')
-  const resData = await getData(userId.value!, "files")
-  return files.value = resData
+  fetchFiles(userId.value)
 }
-
 
 watch(isLoaded, () => {
   getFiles()
