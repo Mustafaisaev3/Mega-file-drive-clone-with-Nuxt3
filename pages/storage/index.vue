@@ -5,7 +5,7 @@
     <!-- Topbar -->
 
     <!-- Heading -->
-    <Heading>
+    <Heading :title="'Облачный диск'">
       <div class="flex items-center gap-6">
           <Popover>
             <PopoverTrigger asChild>
@@ -32,14 +32,14 @@
           <div class="flex items-center gap-2">
             <div class="border-b-2 border-transparent" :class="{'!border-[#6fd7ff]': layout == 'GRID'}">
               <IconCSS
-                @click="() => handleToggleLayout('GRID')" 
+                @click="() => setLayoutType('GRID')" 
                 name="material-symbols:grid-on-sharp" 
                 class="text-[#f1f1f1] text-[24px] cursor-pointer"
               />
             </div>
             <div class="border-b-2 border-transparent" :class="{'!border-[#6fd7ff]': layout == 'LIST'}">
               <IconCSS 
-                @click="() => handleToggleLayout('LIST')" 
+                @click="() => setLayoutType('LIST')" 
                 name="material-symbols:lists" 
                 class="text-[#f1f1f1] text-[24px] cursor-pointer"
               />
@@ -68,9 +68,13 @@ import Grid from '../../components/grid/Grid.vue';
 import { useAuth } from 'vue-clerk';
 import { storeToRefs } from 'pinia'
 import useFilesStorage from '../../store/useFilesStorage'
+import useUI from '../../store/useUI';
+
+const { setLayoutType } = useUI()
+const { layout } = storeToRefs(useUI())
 
 const { fetchFiles } = useFilesStorage()
-const { files, loading } = storeToRefs(useFilesStorage())
+const { files } = storeToRefs(useFilesStorage())
 const { isLoaded, userId } = useAuth()
 
 const getFiles = async () => {
@@ -81,12 +85,9 @@ watch(isLoaded, () => {
   getFiles()
 })
 
-// Grid/List toggle
-const layout = ref<'GRID' | 'LIST'>('LIST')
-const handleToggleLayout = (type: 'GRID' | 'LIST') => {
-  layout.value = type
-}
-
+onMounted(() => {
+  getFiles()
+}),
 
 definePageMeta({
   layout: 'storage'

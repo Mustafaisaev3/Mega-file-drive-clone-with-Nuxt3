@@ -7,11 +7,15 @@ import { db } from '../lib/firebase';
 
 // console.log(isLoaded, userId)
 
-const useFilesStorage = defineStore('ProModal', {
+const useFilesStorage = defineStore('Files', {
     state: () => ({ 
         files: [] as any[],
         loading: false,
      }),
+
+    getters: {
+        wishFiles: (state) => state.files.filter(item => item.isWish),
+    },
 
     actions: {
         async fetchFiles(userId: any) {
