@@ -11,11 +11,6 @@
         <IconCSS name="mdi:rename-outline" class="text-[#cccccc] text-[18px]"/>
           <span class="text-[#cccccc]">Переименовать</span>
         </div>
-        <input
-          type="file"
-          class="hidden"
-          accept="image/*"
-        />
     </label>
     <!-- Rename -->
     
