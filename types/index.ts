@@ -12,5 +12,6 @@ export interface IFile {
     isFolder: boolean;
     isDocument: boolean;
     isImage: boolean;
+    isArchive?: boolean;
     archivedTime: Timestamp;
 }

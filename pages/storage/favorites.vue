@@ -61,7 +61,7 @@ watch(isLoaded, () => {
 
 onMounted(() => {
   getFiles()
-}),
+})
  
 definePageMeta({
   layout: 'storage'

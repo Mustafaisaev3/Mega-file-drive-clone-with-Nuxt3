@@ -1,15 +1,11 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { defineStore } from 'pinia'
-import { useAuth } from 'vue-clerk'
 import { db } from '../lib/firebase';
-
-// const { isLoaded, userId } = useAuth()
-
-// console.log(isLoaded, userId)
 
 const useFilesStorage = defineStore('Files', {
     state: () => ({ 
         files: [] as any[],
+        trashFiles: [] as any[],
         loading: false,
      }),
 
@@ -33,6 +29,23 @@ const useFilesStorage = defineStore('Files', {
             });
           
             this.files = data
+
+            this.loading = false
+        },
+        async fetchTrashFiles(userId: any) {
+            this.loading = true
+            let data: any[] = [];
+            const q = query(
+              collection(db, "files"),
+              where("uid", "==", userId),
+              where("isArchive", "==", true),
+            );
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+              data.push({ ...doc.data(), id: doc.id });
+            });
+          
+            this.trashFiles = data
 
             this.loading = false
         },

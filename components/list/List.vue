@@ -3,7 +3,7 @@
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead class="w-[50px] flex items-center">
+          <TableHead v-if="!trash" class="w-[50px] flex items-center">
             <IconCSS name="mdi:cards-heart" class="text-[16px] text-[#c7c7c7] inline-block" />
           </TableHead>
           <TableHead>Имя</TableHead>
@@ -15,7 +15,7 @@
         </TableRow>
       </TableHeader>
       <TableBody>
-        <ListItem v-for="file in files" :file="file" />
+        <ListItem v-for="file in files" :key="file.id" :file="file" :trash="trash" />
       </TableBody>
     </Table>
   </div>
@@ -27,7 +27,8 @@ import ListItem from './ListItem.vue'
 
 
 const { files } = defineProps({
-  files: Array<IFile>
+  files: Array<IFile>,
+  trash: Boolean,
 })
 
 </script>
