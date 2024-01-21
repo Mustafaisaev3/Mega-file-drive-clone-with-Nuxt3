@@ -71,8 +71,10 @@ const uploadFile = (e: Event) => {
     }
   ).then((docs) => {
     const refs = ref(storage, `files/${docs.id}/${file.name}`) 
+    console.log(refs)
     uploadString(refs, image, "data_url").then(() => {
       getDownloadURL(refs).then((url: string) => {
+        console.log(url)
         updateDoc(doc(db, 'files', docs.id), {
           url,
         }).then(() => {

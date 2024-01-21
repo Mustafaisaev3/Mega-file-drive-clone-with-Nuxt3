@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-auto">
+    <div class="w-full h-auto flex flex-col">
       <!-- Topbar -->
       <Topbar />
       <!-- Topbar -->
@@ -26,11 +26,20 @@
         </div>
       </Heading>
       <!-- Heading -->
-  
-      <!-- Data table -->
-      <List v-if="layout == 'LIST'" :files="wishFiles" />
-      <Grid v-if="layout == 'GRID'" :files="wishFiles"/>
-      <!-- Data table -->
+
+      <div class="flex-1">
+        <!-- Empty Favorites -->
+          <EmptyFavorites v-if="!wishFiles || wishFiles.length == 0" />
+        <!-- Empty Favorites -->
+    
+        <!-- Data table -->
+        <div v-if="wishFiles.length" class="w-full h-auto">
+          <List v-if="layout == 'LIST'" :files="wishFiles" />
+          <Grid v-if="layout == 'GRID'" :files="wishFiles" />
+        </div>
+        <!-- Data table -->
+      </div>
+
     </div>
   </template>
 
@@ -39,6 +48,7 @@ import Topbar from '../../components/shared/Topbar.vue';
 import Heading from '../../components/shared/Heading.vue';
 import List from '../../components/list/List.vue';
 import Grid from '../../components/grid/Grid.vue';
+import EmptyFavorites from '../../components/empty/EmptyFavorites.vue';
 import useUI from '../../store/useUI'
 import useFilesStorage from '../../store/useFilesStorage'
 import { storeToRefs } from 'pinia'

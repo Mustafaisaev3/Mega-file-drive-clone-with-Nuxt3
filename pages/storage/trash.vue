@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-auto">
+  <div class="w-full h-auto flex flex-col">
     <!-- Topbar -->
     <Topbar />
     <!-- Topbar -->
@@ -27,10 +27,19 @@
     </Heading>
     <!-- Heading -->
 
-    <!-- Data table -->
-    <List v-if="layout == 'LIST'" :files="trashFiles" :trash="true"/>
-    <Grid v-if="layout == 'GRID'" :files="trashFiles" :trash="true"/>
-    <!-- Data table -->
+    <div class="flex-1">
+      <!-- Empty Trash -->
+        <EmptyTrash v-if="!trashFiles || trashFiles.length == 0" />
+      <!-- Empty Trash -->
+  
+      <!-- Data table -->
+      <div v-if="trashFiles.length" class="w-full h-auto">
+        <List v-if="layout == 'LIST'" :files="trashFiles" :trash="true"/>
+        <Grid v-if="layout == 'GRID'" :files="trashFiles" :trash="true"/>
+      </div>
+      <!-- Data table -->
+    </div>
+
   </div>
 </template>
 
@@ -39,6 +48,7 @@ import Topbar from '../../components/shared/Topbar.vue';
 import Heading from '../../components/shared/Heading.vue';
 import List from '../../components/list/List.vue';
 import Grid from '../../components/grid/Grid.vue';
+import EmptyTrash from '../../components/empty/EmptyTrash.vue';
 import useUI from '../../store/useUI'
 import useFilesStorage from '../../store/useFilesStorage'
 import { storeToRefs } from 'pinia'
