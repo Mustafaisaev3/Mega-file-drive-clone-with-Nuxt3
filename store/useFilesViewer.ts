@@ -8,7 +8,7 @@ interface FilesViewerType {
 
 const useFilesViewer = defineStore('FilesViewer', {
     state: () => ({ 
-        isOpen: true,
+        isOpen: false,
         file: null
     } as FilesViewerType),
 
@@ -17,6 +17,7 @@ const useFilesViewer = defineStore('FilesViewer', {
             this.isOpen = true
         },
         onClose () {
+            this.file = null
             this.isOpen = false
         },
         setFile (file: IFile) {

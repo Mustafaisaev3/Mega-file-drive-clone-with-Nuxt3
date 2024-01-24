@@ -7,7 +7,7 @@
 </template>
 <script setup lang="ts">
 import useFilesViewer from '../../store/useFilesViewer';
-import FileView from '../shared/FileView.vue';
+import FileView from '../files-viewer/FileView.vue';
 import { storeToRefs } from 'pinia'
 
 const { isOpen } = storeToRefs(useFilesViewer())
