@@ -15,7 +15,13 @@
         </TableRow>
       </TableHeader>
       <TableBody>
-        <ListItem v-for="file in files" :key="file.id" :file="file" :trash="trash" />
+        <ListItem 
+          v-for="file in files" 
+          :key="file.id" 
+          :file="file" 
+          :trash="trash" 
+          @dblclick="() => handleDoubleClick(file)" 
+        />
       </TableBody>
     </Table>
   </div>
@@ -24,12 +30,25 @@
 <script setup lang="ts">
 import type { IFile } from '../../types'
 import ListItem from './ListItem.vue'
+import useFilesViewer from '../../store/useFilesViewer';
+
+const { onOpen, setFile } = useFilesViewer()
 
 
 const { files } = defineProps({
   files: Array<IFile>,
   trash: Boolean,
 })
+
+// Handling double click on item
+const handleDoubleClick = (file: IFile) => {
+  if (file.isFolder) {
+    return 
+  }
+
+  setFile(file)
+  onOpen()
+}
 
 </script>
 <style scoped>
