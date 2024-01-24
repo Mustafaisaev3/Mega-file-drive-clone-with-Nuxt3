@@ -43,5 +43,3 @@ const handleOnWheal = (e) => {
 }
 
 </script>
-<style>
-</style>

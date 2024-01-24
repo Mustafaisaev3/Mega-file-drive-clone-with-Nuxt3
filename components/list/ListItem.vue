@@ -24,6 +24,14 @@
               ${trash ? 'text-[#cdcdcd]' : 'text-[#6fd7ff]'}
             `" 
           />
+          <IconCSS 
+            v-if="file.isVideo" 
+            name="akar-icons:video" 
+            :class="`
+              text-[25px] text-[#c986f7]
+              ${trash ? 'text-[#cdcdcd]' : 'text-[#6fd7ff]'}
+            `" 
+          />
         </div>
         {{ file.name }}
       </div>
@@ -61,6 +69,8 @@ const { file } = defineProps({
     default: false
   },
 })
+
+console.log(file)
 </script>
 <style lang="">
   

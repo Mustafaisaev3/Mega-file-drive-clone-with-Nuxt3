@@ -6,6 +6,9 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@pinia/nuxt'
   ],
+  css: [
+    'video.js/dist/video-js.css'
+  ],
   devtools: { enabled: true },
   build: {
     transpile: ['vue-clerk', '@clerk/clerk-js'],
@@ -20,3 +23,4 @@ export default defineNuxtConfig({
     '/': { redirect: '/storage' },
   },
 })
+

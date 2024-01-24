@@ -41,19 +41,21 @@ import { useRouter } from "vue-router";
 const { user } = useUser()
 
 const uploadFile = (e: Event) => {
+  // const { files } = (<HTMLInputElement>e.target)
+  // console.log(files)
   const router = useRouter()
   const { files } = (<HTMLInputElement>e.target)
   if (!files) return;
 
   const file = files[0];
-  let image = "";
+  let fileUrlStr = "";
 
   const reader = new FileReader();
 
   if (file) {
     reader.readAsDataURL(file);
     reader.onload = (e) => {
-      image = e.target?.result as string;
+      fileUrlStr = e.target?.result as string;
       console.log(e.target?.result)
     };
   }
@@ -65,14 +67,15 @@ const uploadFile = (e: Event) => {
       uid: user?.value?.id,
       timestamp: serverTimestamp(),
       isArchive: false,
+      isVideo: file.type.includes('video') ? true : false,
       isImage: file.type.includes('image') ? true : false,
-      isDocument: !file.type.includes('image') ? true : false,
+      isDocument: !file.type.includes('image') && !file.type.includes('video') ? true : false,
       isFolder: false
     }
   ).then((docs) => {
     const refs = ref(storage, `files/${docs.id}/${file.name}`) 
     console.log(refs)
-    uploadString(refs, image, "data_url").then(() => {
+    uploadString(refs, fileUrlStr, "data_url").then(() => {
       getDownloadURL(refs).then((url: string) => {
         console.log(url)
         updateDoc(doc(db, 'files', docs.id), {
