@@ -16,6 +16,7 @@
       <div class="content h-full flex-1 w-full bg-[#000000] overflow-hidden">
         <ImageView v-if="file?.isImage" />
         <PlayerView v-if="file?.isVideo" />
+        <AudioView v-if="file?.isAudio" />
       </div>
     </div>
 </template>
@@ -24,6 +25,7 @@ import useFilesViewer from '../../store/useFilesViewer'
 import { storeToRefs } from 'pinia'
 import ImageView from './views/ImageView.vue';
 import PlayerView from './views/PlayerView.vue';
+import AudioView from './views/AudioView.vue';
 
 const { onClose } = useFilesViewer()
 const { file } = storeToRefs(useFilesViewer())

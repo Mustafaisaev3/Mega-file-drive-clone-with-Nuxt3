@@ -7,7 +7,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt'
   ],
   css: [
-    'video.js/dist/video-js.css'
+    'video.js/dist/video-js.css',
+    'vue-md-player/dist/style.css',
   ],
   devtools: { enabled: true },
   build: {

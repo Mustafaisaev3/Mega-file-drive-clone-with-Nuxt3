@@ -38,6 +38,7 @@
     "vee-validate": "^4.12.4",
     "video.js": "^8.10.0",
     "vue-clerk": "^0.1.1",
+    "vue-md-player": "^2.1.2",
     "zod": "^3.22.4"
   }
 }

@@ -13,6 +13,7 @@ export interface IFile {
     isDocument: boolean;
     isImage: boolean;
     isVideo: boolean;
+    isAudio: boolean;
     isArchive?: boolean;
     archivedTime: Timestamp;
 }

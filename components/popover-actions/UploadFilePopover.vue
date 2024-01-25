@@ -67,9 +67,10 @@ const uploadFile = (e: Event) => {
       uid: user?.value?.id,
       timestamp: serverTimestamp(),
       isArchive: false,
+      isAudio: file.type.includes('audio') ? true : false,
       isVideo: file.type.includes('video') ? true : false,
       isImage: file.type.includes('image') ? true : false,
-      isDocument: !file.type.includes('image') && !file.type.includes('video') ? true : false,
+      isDocument: !file.type.includes('image') && !file.type.includes('video') && !file.type.includes('audio') ? true : false,
       isFolder: false
     }
   ).then((docs) => {

@@ -32,6 +32,14 @@
               ${trash ? 'text-[#cdcdcd]' : 'text-[#6fd7ff]'}
             `" 
           />
+          <IconCSS 
+            v-if="file.isAudio" 
+            name="ph:music-note-fill" 
+            :class="`
+              text-[25px] text-[#db5757]
+              ${trash ? 'text-[#cdcdcd]' : 'text-[#6fd7ff]'}
+            `" 
+          />
         </div>
         {{ file.name }}
       </div>
