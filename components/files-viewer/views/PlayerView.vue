@@ -16,3 +16,13 @@ import { storeToRefs } from 'pinia'
 
 const { file } = storeToRefs(useFilesViewer())
 </script>
+
+<style scoped>
+.video-js .vjs-big-play-button {
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  margin: auto !important;
+}
+</style>

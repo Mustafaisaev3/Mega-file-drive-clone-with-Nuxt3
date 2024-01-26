@@ -75,7 +75,7 @@ onMounted(() => {
  
 definePageMeta({
   layout: 'storage',
-  middleware: 'auth'
+  // middleware: 'auth'
 })
 </script>
 
