@@ -19,6 +19,24 @@
           `" 
         />
       </div>
+      <div v-else-if="file.isVideo" class="w-full h-full p-2 flex items-center justify-center">
+        <IconCSS 
+          name="akar-icons:video" 
+          :class="`
+            text-[80px]
+            ${trash ? 'text-[#cdcdcd]' : 'text-[#c986f7]'}
+          `" 
+        />
+      </div>
+      <div v-else-if="file.isAudio" class="w-full h-full p-2 flex items-center justify-center">
+        <IconCSS 
+          name="ph:music-note-fill" 
+          :class="`
+            text-[80px]
+            ${trash ? 'text-[#cdcdcd]' : 'text-[#db5757]'}
+          `" 
+        />
+      </div>
       <div v-else-if="file.isImage" class="w-full h-full">
         <img :src="file.url" class="w-full h-full object-cover"/>
       </div>

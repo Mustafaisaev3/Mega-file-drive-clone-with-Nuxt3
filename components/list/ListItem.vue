@@ -29,7 +29,7 @@
             name="akar-icons:video" 
             :class="`
               text-[25px] text-[#c986f7]
-              ${trash ? 'text-[#cdcdcd]' : 'text-[#6fd7ff]'}
+              ${trash ? 'text-[#cdcdcd]' : 'text-[#c986f7]'}
             `" 
           />
           <IconCSS 
@@ -37,7 +37,7 @@
             name="ph:music-note-fill" 
             :class="`
               text-[25px] text-[#db5757]
-              ${trash ? 'text-[#cdcdcd]' : 'text-[#6fd7ff]'}
+              ${trash ? 'text-[#cdcdcd]' : 'text-[#db5757]'}
             `" 
           />
         </div>
