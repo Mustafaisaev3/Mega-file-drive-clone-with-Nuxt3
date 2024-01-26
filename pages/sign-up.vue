@@ -17,6 +17,6 @@ import { SignUp } from 'vue-clerk';
 
 definePageMeta({
   layout: "auth",
-  // middleware: ['public']
+  middleware: ['public']
 });
 </script>
